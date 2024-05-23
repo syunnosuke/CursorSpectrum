@@ -8,5 +8,5 @@ A software which enables interactive interpretation of mapping Raman spectra
 5. Load image data
 6. Initialize (raise error if data is insufficient)
 7. Search grid with <B1-Motion>. Spectrum is automatically updated
-8. Save current spectrum if nesessary by Save current spectrum button
+8. Save current spectrum if nesessary by the button
   
