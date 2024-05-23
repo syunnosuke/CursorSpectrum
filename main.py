@@ -84,6 +84,7 @@ class app(ttk.Frame):
 
 
         # Graph related
+        sns.set_style(style="darkgrid")
         self.fig = Figure()
         self.ax = self.fig.add_subplot(1, 1, 1)
         self.figCanvas = FigureCanvasTkAgg(self.fig, self.master)
@@ -138,8 +139,7 @@ class app(ttk.Frame):
             return -1
         
         self.imgSet()
-        sns.set()
-        self.ax.plot(self.rs, self.Mtr[:,0])
+        self.ax.plot(self.rs, self.Mtr[:,0],linewidth=0.5)
         self.ax.set_xlabel("Raman shift [cm-1]")
         self.ax.set_ylabel(" a. u.")
         self.figCanvas.draw()
@@ -227,18 +227,17 @@ class app(ttk.Frame):
 
         self.crrSpec = self.Mtr[:,self.wvIdx].copy()
         self.ax.cla()
-        self.ax.plot(self.rs, self.crrSpec)
+        self.ax.plot(self.rs, self.crrSpec, linewidth=0.5)
         self.ax.set_xlabel("Raman shift [cm-1]")
         self.ax.set_ylabel(" a. u.")
         self.figCanvas.draw()
-
-        print(self.crrSpec)
     
     def saveCrrSpec(self):
         self.MtrFileName = self.mtrPath[self.mtrPath.rfind('/')+1:]
         self.svFileName = self.MtrFileName[:-4]+"_X"+str(self.crrGridX)+"Y"+str(self.crrGridY)+".txt"
         print(self.svFileName)
         np.savetxt(self.svFileName, self.crrSpec)
+        print(f"Spectrum {self.svFileName} is saved.")
 
 
 
