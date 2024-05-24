@@ -14,10 +14,11 @@ A software which enables interactive interpretation of mapping Raman spectra
 </br>
 
 
-https://github.com/syunnosuke/CursorSpectrum/assets/48796518/c20cba2a-f326-4202-a499-416577950132
+https://github.com/syunnosuke/CursorSpectrum/assets/48796518/7d8bb963-36e5-4cc8-a52a-a92334becec2
 
 
 </br>
 ---
+</br>
 Copyright (c) 2023-2024 SuwaSyun. All Rights Reserved.<br/>
 Secondary distribution is prohibited.
