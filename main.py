@@ -38,8 +38,8 @@ class app(ttk.Frame):
         self.rsBtn = ttk.Button(self.master, text="Load rs [.txt]", command = self.loadRs)
         self.rsBtn.grid(column=0, row = 1,columnspan=2, sticky=tk.EW ,padx=pad_x, pady = pad_y)
 
-        self.valX = tk.IntVar(value=3)
-        self.valY = tk.IntVar(value=3)
+        self.valX = tk.IntVar(value=20)
+        self.valY = tk.IntVar(value=20)
 
 
         self.Xlabel = ttk.Label(self.master, text = "num X step")
