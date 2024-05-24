@@ -1,4 +1,5 @@
-#%%
+#-*- coding:utf-8 -*-
+
 import cv2
 import numpy as np
 import pandas as pd
@@ -7,7 +8,6 @@ from PIL import Image, ImageTk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
-
 import seaborn as sns
 
 import tkinter as tk
@@ -16,7 +16,7 @@ from tkinter import filedialog
 
 class app(ttk.Frame):
     def __init__(self, master =None): # master : tk.TK class
-        super().__init__(master) # tk.TK classでinitialize
+        super().__init__(master) # tk.TK class :initialize
 
         self.MtrLoad = False
         self.rsLoad = False
@@ -93,8 +93,6 @@ class app(ttk.Frame):
         # self.figWiToolbar = NavigationToolbar2Tk(self.figCanvas, self.master)
         # self.naviFrame.grid(column =4, row =2, sticky=tk.NW ,rowspan=10,padx=1, pady = pad_y/4)
     
-
-
     # functions
     def loadImg(self):
         self.imgPath = filedialog.askopenfilename(filetypes=[('','*.png;*.jpg;*.jpeg;*.emf;*.tiff;*.tif')],title = "Choose Image file")
@@ -174,9 +172,8 @@ class app(ttk.Frame):
         else:
             self.imgResize=cv2.resize(self.imgResize, dsize=None, fx = self.canvasSize/self.crrImgX, fy =self.canvasSize/self.crrImgX )
         
-        #print(self.imgResize.shape)
         self.ResImgSizeY, self.ResImgSizeX, = self.imgResize.shape[:2]
-        #print(self.imgResize.shape[:2])
+
         self.img = cv2.cvtColor(self.imgResize, cv2.COLOR_BGR2RGB)
         self.img_pil = Image.fromarray(self.img) 
         self.img_tk  = ImageTk.PhotoImage(self.img_pil) 
@@ -194,7 +191,7 @@ class app(ttk.Frame):
     
     def imgSet(self):
         self.imgResize()
-        self.imgCanvas.create_image(0, 0, image=self.img_tk, anchor='nw') # ImageTk 画像配置
+        self.imgCanvas.create_image(0, 0, image=self.img_tk, anchor='nw') # ImageTk
         self.addGrid2Img()
    
     def pickPos(self,event):
@@ -222,8 +219,6 @@ class app(ttk.Frame):
     
     def updateGraph(self):
         self.wvIdx = self.crrGridY*int(self.xGrid) + self.crrGridX
-        #print(str(self.crrGridX)+"," +str(self.crrGridY))
-        #print(self.wvIdx)
 
         self.crrSpec = self.Mtr[:,self.wvIdx].copy()
         self.ax.cla()
@@ -235,10 +230,12 @@ class app(ttk.Frame):
     def saveCrrSpec(self):
         self.MtrFileName = self.mtrPath[self.mtrPath.rfind('/')+1:]
         self.svFileName = self.MtrFileName[:-4]+"_X"+str(self.crrGridX)+"Y"+str(self.crrGridY)+".txt"
-        print(self.svFileName)
-        np.savetxt(self.svFileName, self.crrSpec)
-        print(f"Spectrum {self.svFileName} is saved.")
 
+        to_save = pd.DataFrame(self.crrSpec)
+        to_save = to_save.rename(columns={to_save.columns[0] :self.svFileName[:-4] })
+        to_save.to_csv(self.svFileName,index=False, header=self.svFileName[:-4], sep='\t')
+        
+        print(f"Spectrum {self.svFileName} is saved.")
 
 
 if __name__ == "__main__":
@@ -246,4 +243,3 @@ if __name__ == "__main__":
     Application = app(master = main_wn)
     Application.mainloop()
     
-#%%
