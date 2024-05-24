@@ -20,5 +20,4 @@ https://github.com/syunnosuke/CursorSpectrum/assets/48796518/7d8bb963-36e5-4cc8-
 </br>
 ---
 </br>
-Copyright (c) 2023-2024 SuwaSyun. All Rights Reserved.<br/>
-Secondary distribution is prohibited.
+Copyright (c) 2023-2024 SuwaSyun. All Rights Reserved.
