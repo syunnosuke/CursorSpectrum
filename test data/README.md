@@ -2,5 +2,5 @@
 Raman mapping spectra of single polystylene beads
 </br>
 1. Matrix
-2. raman shift
-3. image
+2. Raman shift
+3. Image
