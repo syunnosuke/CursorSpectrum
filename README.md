@@ -2,7 +2,7 @@
 
 A software which enables interactive interpretation of mapping Raman spectra
 ## How to use
-1. Run main_ibw.exe file
+1. Run main.py file
 2. Load Matrix data (ibw file )
 3. Load Raman shift data (ibw file )
 4. Set XY grid
