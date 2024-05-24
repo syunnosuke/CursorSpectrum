@@ -12,7 +12,11 @@ A software which enables interactive interpretation of mapping Raman spectra
 8. Save current spectrum if nesessary by the button
 
 </br>
-![Grid2Spec 2024_05_24 17_07_58](https://github.com/syunnosuke/CursorSpectrum/assets/48796518/373bc00c-35ba-43f7-adb2-53a9c2e63b84)
+
+
+https://github.com/syunnosuke/CursorSpectrum/assets/48796518/c20cba2a-f326-4202-a499-416577950132
+
+
 </br>
 ---
 Copyright (c) 2023-2024 SuwaSyun. All Rights Reserved.<br/>
