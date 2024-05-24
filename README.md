@@ -8,7 +8,7 @@ A software which enables interactive interpretation of mapping Raman spectra
 4. Set XY grid
 5. Load image data (resize beforehand)
 6. Initialize (raise error if any data or grid mismatch)
-7. Search grid with <B1-Motion>. Spectrum is automatically updated
+7. Search grid with B1-Motion. Spectrum is automatically updated
 8. Save current spectrum if nesessary by the button
 
 <br/>
