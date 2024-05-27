@@ -15,7 +15,7 @@ from tkinter import ttk
 from tkinter import filedialog
 
 class app(ttk.Frame):
-    def __init__(self, master =None): # master : tk.TK class
+    def __init__(self, master =None): # master : tk.TK classs
         super().__init__(master) # tk.TK class :initialize
 
         self.MtrLoad = False
@@ -89,10 +89,11 @@ class app(ttk.Frame):
         self.ax = self.fig.add_subplot(1, 1, 1)
         self.figCanvas = FigureCanvasTkAgg(self.fig, self.master)
         self.figCanvas.get_tk_widget().grid(column =4, row =1, sticky=tk.NW ,rowspan=7,padx=1, pady = pad_y/4,ipady=30)
-        # self.naviFrame = ttk.Frame(master = self.mainframe)
-        # self.figWiToolbar = NavigationToolbar2Tk(self.figCanvas, self.master)
-        # self.naviFrame.grid(column =4, row =2, sticky=tk.NW ,rowspan=10,padx=1, pady = pad_y/4)
-    
+        
+        #self.naviFrame = ttk.Frame(master = self.mainframe)
+        self.figWiToolbar = NavigationToolbar2Tk(self.figCanvas, self.master,pack_toolbar=False)
+        self.figWiToolbar.grid(column =4, row =8, sticky=tk.NW ,rowspan=10,padx=1, pady = pad_y/4)
+ 
     # functions
     def loadImg(self):
         self.imgPath = filedialog.askopenfilename(filetypes=[('','*.png;*.jpg;*.jpeg;*.emf;*.tiff;*.tif')],title = "Choose Image file")
@@ -195,6 +196,9 @@ class app(ttk.Frame):
         self.addGrid2Img()
    
     def pickPos(self,event):
+        self.prevX = self.crrX ## for line move
+        self.prevY = self.crrY
+
         self.crrX = event.x
         self.crrY = event.y
         # fix position if exceed the boundary
@@ -210,6 +214,16 @@ class app(ttk.Frame):
 
         self.calcGridPos()
         self.updateGraph()
+        self.moveCursor()
+
+    def moveCursor(self):
+
+        if((hasattr(self,"lineX")==False) and (hasattr(self,"lineX")==False)):
+            self.lineX = self.imgCanvas.create_line( 0, self.crrY,      self.ResImgSizeX, self.crrY, tag = "lineX", fill="#3BAF75") # hirizontal
+            self.lineY = self.imgCanvas.create_line( self.crrX,0,       self.crrX ,self.ResImgSizeX, tag = "lineY", fill="#3BAF75") # vertical
+        else:
+            self.imgCanvas.move(self.lineX, 0, self.crrY- self.prevY)
+            self.imgCanvas.move(self.lineY, self.crrX- self.prevX, 0)
    
     def calcGridPos(self):
         self.crrGridX = int(self.crrX // self.xStp)
