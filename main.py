@@ -209,8 +209,12 @@ class app(ttk.Frame):
         self.imgResize()
         self.imgCanvas.create_image(0, 0, image=self.img_tk, anchor='nw') # ImageTk
         self.addGrid2Img()
-   
+        if(self.radioVal.get() =='A'):
+            print(">>>  mapping direction of X→Y↓ is applied")
+        else:
+            print(">>>  mapping direction of Y↓X→ is applied")
     def pickPos(self,event):
+
         self.prevX = self.crrX ## for line move
         self.prevY = self.crrY
 
@@ -247,7 +251,12 @@ class app(ttk.Frame):
         self.valCrrY.set(self.crrGridY)
     
     def updateGraph(self):
-        self.wvIdx = self.crrGridY*int(self.xGrid) + self.crrGridX
+        # depends in the mapping direction
+        if(self.radioVal.get() =='A'):
+            self.wvIdx = self.crrGridY*int(self.xGrid) + self.crrGridX
+        else:
+            self.wvIdx = self.crrGridX*int(self.yGrid) + self.crrGridY
+
 
         self.crrSpec = self.Mtr[:,self.wvIdx].copy()
         self.ax.cla()
