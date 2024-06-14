@@ -60,8 +60,18 @@ class app(ttk.Frame):
         self.saveBtn = ttk.Button(self.master, text="Save Current Spectrum",command=self.saveCrrSpec)
         self.saveBtn.grid(column=0, row = 6,columnspan=2, sticky=tk.EW ,padx=pad_x, pady = pad_y)
 
-        self.buffCanvas = tk.Canvas(self.master, width =100, height=100)
-        self.buffCanvas.grid(column=0, row = 7, columnspan=2,sticky=tk.EW ,padx=pad_x, pady = pad_y, ipady=60)
+        # self.buffCanvas = tk.Canvas(self.master, width =100, height=100)
+        # self.buffCanvas.grid(column=0, row = 7, columnspan=2,sticky=tk.EW ,padx=pad_x, pady = pad_y, ipady=60)
+
+                ## direction button
+        self.btnLabel  =ttk.Label(self.master, text = "Mapping direction")
+        self.btnLabel.grid(column=0, row=8, columnspan=2, sticky=tk.EW ,padx=pad_x)
+        self.radioVal = tk.StringVar()
+        self.radioVal.set('A')
+        self.dirButtonA = ttk.Radiobutton(self.master,text="X→Y↓", variable = self.radioVal, value = 'A')
+        self.dirButtonB = ttk.Radiobutton(self.master,text="Y↓X→", variable = self.radioVal, value = 'B')
+        self.dirButtonA.grid(column=0, row = 9, columnspan=1,sticky=tk.EW ,padx=pad_x, pady =0)
+        self.dirButtonB.grid(column=1, row = 9, columnspan=1,sticky=tk.EW ,padx=pad_x, pady=0)
 
         # Image related
         self.canvasSize = 500
@@ -104,6 +114,7 @@ class app(ttk.Frame):
         self.img_ = cv2.imdecode(self.img_array, cv2.IMREAD_COLOR)
 
         self.imgLoad =True
+        print(f"[img]>>> {self.imgPath} is loaded")
     
     def loadMtr(self):
         self.mtrPath = filedialog.askopenfilename(filetypes=[('','*.txt')],title = "Choose matrix data file (.txt)")
@@ -115,6 +126,7 @@ class app(ttk.Frame):
         self.Mtr_row, self.Mtr_col  = self.Mtr.shape
 
         self.MtrLoad=True
+        print(f"[mtr]>>> {self.mtrPath} is loaded")
 
     def loadRs(self):
         self.rsPath = filedialog.askopenfilename(filetypes=[('','*.txt')],title = "Choose raman shift data file (.txt)")
@@ -125,11 +137,12 @@ class app(ttk.Frame):
         self.rs = np.array(self.rs_)
         self.rs_row, self.rs_col  = self.rs.shape
         if(self.rs_col >1):
-            print("Bad data format for raman shift: > 1 size of column ... ")
+            print("Error >>> Bad data format for raman shift: > 1 size of column ... ")
             return -1
         
         self.rs = np.ravel(self.rs)
         self.rsLoad=True
+        print(f"[rs]>>> {self.rsPath} is loaded")
 
     # initialize 
     def init(self):
@@ -142,6 +155,8 @@ class app(ttk.Frame):
         self.ax.set_xlabel("Raman shift [cm-1]")
         self.ax.set_ylabel(" a. u.")
         self.figCanvas.draw()
+
+        print(">>>  Initialized successfully.")
     
     def getXYGrid(self):
         self.xGrid = int(self.Xspnbox.get())
@@ -150,15 +165,15 @@ class app(ttk.Frame):
     def checkValid_onInit(self): # confirm data validity
         #data load
         if((self.MtrLoad is False) or (self.rsLoad is False)):
-            print("Spectral data is insufficient ...")
+            print("Error >>> Spectral data is insufficient ...")
             return -1
 
         if(self.imgLoad is False):
-            print("Image data is not loaded ...")
+            print("Error >>> Image data is not loaded ...")
             return -1
         #size consistency
         if(self.xGrid * self.yGrid != self.Mtr.shape[1]):
-            print("Set grid does not match the data size ...")
+            print("Error >>> Set grid does not match the data size ...")
             return -1
         
 
